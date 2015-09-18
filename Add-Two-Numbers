@@ -1,0 +1,44 @@
+//Python
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        newhead=cur=ListNode(0)
+        carry=0
+        while l1 or l2 or carry:
+            v1=l1.val if l1 else 0
+            v2=l2.val if l2 else 0
+            cur.next=ListNode((v1+v2+carry)%10)
+            carry=(v1+v2+carry)/10
+            cur=cur.next
+            l1=l1.next if l1 else l1
+            l2=l2.next if l2 else l2
+        return newhead.next
+
+//C++
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* head=new ListNode(-1);
+        ListNode *res=head;
+        int carry=0;
+        while(l1||l2){
+            int v1= l1?l1->val:0;
+            int v2=l2? l2->val:0;
+            ListNode *tmp=new ListNode((v1+v2+carry)%10);
+            carry=(v1+v2+carry)/10;
+            head->next=tmp;
+            head=head->next;
+            l1= l1?l1->next:NULL;
+            l2= l2?l2->next:NULL;
+        }
+        if(carry!=0){
+            ListNode* tmp=new ListNode(carry);
+            head->next=tmp;
+        }
+        return res->next;
+    }
+};
