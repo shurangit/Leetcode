@@ -1,0 +1,40 @@
+//Python
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        res=0
+        start=0
+        hash={}
+        for i in range(len(s)):
+            if s[i] in hash:
+                res=max(res,i-start)
+                start=max(start,hash[s[i]]+1)
+                hash[s[i]]=i
+            else:
+                hash[s[i]]=i
+        return max(res,len(s)-start)
+        
+//C++
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxlen=0,len=0,start=0;
+        map<char,int> hash; //value->the lastest pos of key
+        for(int i=0;i<s.size();i++){
+            if(hash.find(s[i])==hash.end()){ //letter not repeated
+                hash[s[i]]=i;
+                len++;
+            }else{
+                start=max(start,hash[s[i]]);
+                len=i-start;
+                hash[s[i]]=i;
+            }
+            maxlen=max(maxlen,len);
+        }
+        return maxlen;
+    }
+};
