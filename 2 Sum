@@ -1,0 +1,41 @@
+//python
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        if len(nums)<=1:
+            return False
+        dist={}
+        for i in range(len(nums)):
+            diff=target-nums[i]
+            if diff in dist:
+                return [dist[diff]+1,i+1]
+            else:
+                dist[nums[i]]=i
+                
+                
+//C++
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        map<int,int> hash; //key:num, value:index
+        if(nums.size()<2) return res;
+        for(int i=0;i<nums.size();i++){
+            int diff=target-nums[i];
+            if(hash.find(diff)!=hash.end()){
+                res.push_back(hash[diff]+1);
+                res.push_back(i+1);
+                break;
+            }else{
+                hash[nums[i]]=i;
+            }
+        }
+        return res;
+    }
+};
