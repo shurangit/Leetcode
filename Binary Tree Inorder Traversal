@@ -1,0 +1,140 @@
+//C++ interate
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> visit;
+        TreeNode* cur=root;
+        while(cur||!visit.empty()){
+            //store all left nodes
+            if(cur){
+                visit.push(cur);
+                cur=cur->left;
+            }
+            //if left node does not have a right node, return to parent.if yes, from its right node from beginning
+            else{
+                cur=visit.top();
+                visit.pop();
+                res.push_back(cur->val);
+                cur=cur->right;
+            }
+        }
+        return res;
+    }
+};
+
+//C++ recursive
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        helper(res,root);
+        return res;
+    }
+    
+    void helper(vector<int> &res,TreeNode* root){
+        if(!root){
+            return;
+        }
+        helper(res,root->left);
+        res.push_back(root->val);
+        helper(res,root->right);
+    }
+};
+
+//C++ Morris Traverse
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        TreeNode *cur=root;
+        while(cur){
+            if(!cur->left){
+                res.push_back(cur->val);
+                cur=cur->right;
+            }else{
+                TreeNode *prev=cur->left;
+                while(prev->right && prev->right!=cur){
+                    prev=prev->right;
+                }
+                if(prev->right){
+                    prev->right=NULL;
+                    res.push_back(cur->val);
+                    cur=cur->right;
+                }else{
+                    prev->right=cur;
+                    cur=cur->left;
+                }
+            }
+        }
+        return res;
+    }
+    
+};
+
+//Python interate
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res,stack=[],[]
+        cur=root
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur=cur.left
+            else:
+                tmp=stack.pop()
+                res.append(tmp.val)
+                cur=tmp.right
+        return res
+
+
+//Python recursive
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res=[]
+        self.helper(root,res)
+        return res
+        
+    def helper(self, root, res):
+        if not root:
+            return
+        self.helper(root.left,res)
+        res.append(root.val)
+        self.helper(root.right,res)
+ 
+ //Python Morris
+ class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        cur=root
+        res=[]
+        while cur:
+            if not cur.left:
+                res.append(cur.val)
+                cur=cur.right
+            else:
+                pre=cur.left
+                while pre.right and pre.right!=cur:
+                    pre=pre.right
+                if pre.right:
+                    res.append(cur.val)
+                    pre.right=None
+                    cur=cur.right
+                else:
+                    pre.right=cur
+                    cur=cur.left
+        return res
