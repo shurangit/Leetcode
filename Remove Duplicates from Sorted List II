@@ -1,0 +1,50 @@
+//C++
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* head_new=new ListNode(-1);
+        head_new->next=head;
+        ListNode* pre=head_new, *cur=head;
+        while(cur){
+            if(cur->next&&cur->val==cur->next->val){
+                int val=cur->val;
+                while(cur&&cur->val==val){
+                    ListNode *tmp=cur->next;
+                    pre->next=tmp;
+                    delete cur;
+                    cur=tmp;
+                }
+            }
+            else{
+                pre=cur;
+                cur=cur->next;
+            }
+        }
+        return head_new->next;
+    }
+};
+
+
+
+//python
+
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        newhead=ListNode(-1)
+        newhead.next=head
+        prev=newhead
+        cur=prev.next
+        while cur:
+            if cur.next and cur.next.val==cur.val:
+                val=cur.val
+                while cur and cur.val==val:
+                    prev.next=cur.next
+                    cur=cur.next
+            else:
+                prev=cur
+                cur=cur.next
+        return newhead.next
