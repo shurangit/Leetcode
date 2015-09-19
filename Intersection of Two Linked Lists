@@ -1,0 +1,85 @@
+//C++
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int la=length(headA);
+        int lb=length(headB);
+        if(la==0||lb==0) return NULL;
+        ListNode *a=headA;
+        ListNode *b=headB;
+        //make them the same length
+        if(la>lb){
+            int gap=la-lb;
+            for(int i=0;i<gap;i++){
+                a=a->next;
+            }
+        }
+        if(la<lb){
+            int gap=lb-la;
+            for(int i=0;i<gap;i++){
+                b=b->next;
+            }
+        }
+        while(a&&b){
+            if(a==b) return a;
+            else{
+                a=a->next;
+                b=b->next;
+            }
+        }
+        return NULL;
+    }
+    int length(ListNode *p){
+        int l=0;
+        if(!p) return l;
+        ListNode *tmp=p;
+        while(tmp){
+            l++;
+            tmp=tmp->next;
+        }
+        return l;
+    }
+};
+
+
+
+
+
+
+
+//python
+
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        l1=self.getLength(headA)
+        l2=self.getLength(headB)
+        if l1==0 or l2==0:
+            return None
+        fast=headA if l1>l2 else headB
+        slow=headB if l1>l2 else headA
+        dif=abs(l1-l2)
+        while fast and dif>0:
+            fast=fast.next
+            dif-=1
+        while fast and slow:
+            if fast==slow:
+                return fast
+            else:
+                fast=fast.next
+                slow=slow.next
+        return None
+        
+        
+        
+        
+    def getLength(self, head):
+        l=0
+        cur=head
+        while cur:
+            cur=cur.next
+            l+=1
+        return l
