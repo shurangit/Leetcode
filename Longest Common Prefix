@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        string res;
+        if(strs.size()==0) return "";
+        if(strs.size()==1) return strs[0];
+        int tmp=strs[0].length(),l=0;
+        for(int i=1;i<strs.size();i++){
+            int l=0;
+            int size=(tmp>strs[i].size())? strs[i].size():tmp;
+            for(l=0;l<size;l++){
+                if(strs[i].at(l)!=strs[0].at(l)) break;
+            }
+            if(l==0) return "";
+            tmp=l;
+        }
+        return strs[0].substr(0,tmp);
+    
+    }
+};
+
+//python
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        lens=len(strs)
+        if lens==0:
+            return ""
+        if lens==1:
+            return strs[0]
+        longest=len(strs[0])
+        for i in xrange(1,lens):
+            j=0
+            longest=min(longest,len(strs[i]))
+            while j<longest:
+                if strs[i][j]==strs[0][j]:
+                    j+=1
+                else:
+                    break
+            longest=j
+        return strs[0][0:longest]
+        
