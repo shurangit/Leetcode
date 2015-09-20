@@ -1,0 +1,26 @@
+//python
+class Solution(object):
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        intmax=2147483647;intmin=-2147483648
+        sign=1;res=0
+        str=str.strip() 
+        if not str:
+            return 0
+        i=0
+        if str[i]=="+":
+            i+=1
+        elif str[i]=="-":
+            i+=1;sign=-1
+        while i<len(str):
+            if not str[i].isdigit():
+                break
+            else:
+                res=res*10+string.atoi(str[i])
+                if(res>intmax):
+                    break
+                i+=1
+        return min(max(sign*res,intmin),intmax)
