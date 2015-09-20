@@ -18,7 +18,6 @@ class Solution(object):
         
         
 //c++
-
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
