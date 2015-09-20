@@ -23,3 +23,30 @@ public:
         return res->next;
     }
 };
+//python
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        newhead=ListNode(-1)
+        newhead.next=head
+        cur=head;prev=newhead
+        while cur and cur.next:
+            prev.next=cur.next
+            tmp=cur.next.next
+            cur.next.next=cur
+            cur.next=tmp
+            prev=cur
+            cur=cur.next
+        return newhead.next
+            
+        
