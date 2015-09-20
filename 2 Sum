@@ -16,6 +16,7 @@ class Solution(object):
                 return [dist[diff]+1,i+1]
             else:
                 dist[nums[i]]=i
+
                 
                 
 //C++
