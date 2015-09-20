@@ -22,7 +22,6 @@ public:
         return s.substr(start,maxlen); 
     }
 };
-
 //python
 class Solution(object):
     def longestPalindrome(self, s):
