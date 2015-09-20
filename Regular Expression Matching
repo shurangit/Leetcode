@@ -1,0 +1,51 @@
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int m=s.size(), n=p.size();
+        vector<vector<bool>> dp(m+1,vector<bool>(n+1,false));
+        dp[0][0]=true;
+        for(int i=0;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(p[j-1]!='.'&&p[j-1]!='*'){
+                    if(i>0&&dp[i-1][j-1]&&(s[i-1]==p[j-1])) dp[i][j]=true;
+                }
+                else if(p[j-1]=='.'){
+                    if(i>0&&dp[i-1][j-1]) dp[i][j]=true;
+                }
+                else if(j>1){
+                    if(dp[i][j-1]||dp[i][j-2]) dp[i][j]=true;
+                    else if(i>0&&dp[i-1][j]&&(s[i-1]==p[j-2]||p[j-2]=='.')) dp[i][j]=true;
+                }
+            }
+        }
+        return dp[m][n];
+    }
+};
+
+//python
+class Solution(object):
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        sl=len(s); pl=len(p)
+        dp=[[False for i in range(pl+1)]for j in range(sl+1)]
+        dp[0][0]=True
+        for i in xrange(sl+1):
+            for j in xrange(1,pl+1):
+                if p[j-1]!='.' and p[j-1]!='*':
+                    if i>0 and dp[i-1][j-1] and s[i-1]==p[j-1]:
+                        dp[i][j]=True
+                elif p[j-1]=='.':
+                    if i>0 and dp[i-1][j-1]:
+                        dp[i][j]=True
+                elif j>1:
+                    if dp[i][j-1] or dp[i][j-2]:
+                        dp[i][j]=True
+                    elif i>0 and dp[i-1][j] and(s[i-1]==p[j-2] or p[j-2]=='.'):
+                        dp[i][j]=True
+        
+        return dp[sl][pl]
+        
