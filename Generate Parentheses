@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        generate(res,"",n,n);
+        return res;
+    }
+    void generate(vector<string> &res,string s,int n1,int n2){
+        if(n1==0&&n2==0){
+            res.push_back(s);
+        }
+        else{
+           if(n1>0) generate(res,s+'(',n1-1,n2);
+           if(n2>n1) generate(res,s+')',n1,n2-1); 
+        }
+        
+    }
+};
+
+//python
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        res=[]
+        self.helper(n,n,res,"")
+        return res
+       
+       
+       
+    def helper(self,l,r,res,s):
+        if l>r or l<0:
+            return
+        elif l==0 and r==0:
+            res.append(s)
+        else:
+            self.helper(l-1,r,res,s+"(")
+            self.helper(l,r-1,res,s+")")
+        
+            
