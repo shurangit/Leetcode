@@ -17,6 +17,7 @@ class Solution(object):
             l1=l1.next if l1 else l1
             l2=l2.next if l2 else l2
         return newhead.next
+        
 
 //C++
 class Solution {
