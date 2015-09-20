@@ -12,6 +12,7 @@ class Solution(object):
         else:
             return (self.findKthElement(nums1,nums2,l//2+1)+self.findKthElement(nums1,nums2,l//2))/2.0
         
+     
         
     def findKthElement(self,nums1,nums2,k):
         if len(nums1)>len(nums2):
