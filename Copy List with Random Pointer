@@ -39,3 +39,32 @@ public:
         return hash[head];
     }
 };
+
+//python
+class Solution(object):
+    def copyRandomList(self, head):
+        """
+        :type head: RandomListNode
+        :rtype: RandomListNode
+        """
+        if not head:
+            return head
+        dist={}
+        cur=head
+        cur2=RandomListNode(head.label)
+        dist[cur]=cur2
+        while cur:
+            if cur.next:
+                if cur.next in dist:
+                    cur2.next=dist[cur.next]
+                else:
+                    cur2.next=RandomListNode(cur.next.label)
+                    dist[cur.next]=cur2.next
+            if cur.random:
+                if cur.random in dist:
+                    cur2.random=dist[cur.random]
+                else:
+                    cur2.random=RandomListNode(cur.random.label)
+                    dist[cur.random]=cur2.random
+            cur=cur.next;cur2=cur2.next
+        return dist[head]
