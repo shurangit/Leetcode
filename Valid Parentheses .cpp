@@ -17,3 +17,28 @@ public:
         
     }
 };
+
+//python
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        hash={")":"(","}":"{","]":"["}
+        stack=[]
+        for i in s:
+            if i not in hash:
+                stack.append(i)
+            else:
+                if stack:
+                    if stack[-1]==hash[i]:
+                        stack.pop()
+                    else:
+                        return False
+                else:
+                    return False
+        if stack:
+            return False
+        else:
+            return True
