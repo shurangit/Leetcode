@@ -30,4 +30,30 @@ public:
     
 };
         
+     
+//python
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def removeElements(self, head, val):
+        """
+        :type head: ListNode
+        :type val: int
+        :rtype: ListNode
+        """
+        newhead=ListNode(-1)
+        newhead.next=head
+        cur=newhead
+        while cur and cur.next:
+            if cur.next.val==val:
+                tmp=cur.next.next
+                cur.next=tmp
+            else:
+                cur=cur.next
+        return newhead.next
         
