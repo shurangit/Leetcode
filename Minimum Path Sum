@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int c=grid[0].size(), r=grid.size();
+        vector<vector<int>> store(r,vector<int>(c));
+        store[0][0]=grid[0][0];
+        for(int i=1;i<r;i++){
+            store[i][0]=store[i-1][0]+grid[i][0];
+        }
+        for(int j=1;j<c;j++){
+            store[0][j]=store[0][j-1]+grid[0][j];
+        }
+        for(int i=1;i<r;i++){
+            for(int j=1;j<c;j++){
+                store[i][j]=min(store[i-1][j],store[i][j-1])+grid[i][j];
+            }
+        }
+        return store[r-1][c-1];
+    }
+};
+
+//python
+class Solution(object):
+    def minPathSum(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        m,n=len(grid),len(grid[0])
+        dp=[[0 for i in range(n)] for j in range(m)]
+        for i in range(m):
+            for j in range(n):
+                if i==0 and j==0:
+                    dp[i][j]=grid[i][j]
+                elif i==0:
+                    dp[i][j]=dp[i][j-1]+grid[i][j]
+                elif j==0:
+                    dp[i][j]=dp[i-1][j]+grid[i][j]
+                else:
+                    dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j]
+        return dp[-1][-1]
+        
