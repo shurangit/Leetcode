@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        k%=nums.size();
+        reverse(nums,0,nums.size()-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k,nums.size()-1); 
+        
+        
+    }
+    void reverse(vector<int>& nums, int start, int end){
+        while(start<end){
+            int tmp=nums[start];
+            nums[start]=nums[end];
+            nums[end]=tmp;
+            start++;end--;
+        }
+    }
+};
+
+//python
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        k%=len(nums)
+        self.reverse(nums,0,len(nums))
+        self.reverse(nums,0,k)
+        self.reverse(nums,k,len(nums))
+        
+        
+    def reverse(self, nums, start,end):
+        while start<end:
+            tmp=nums[start]
+            nums[start]=nums[end-1]
+            nums[end-1]=tmp
+            end-=1
+            start+=1
+        
+        
