@@ -1,0 +1,16 @@
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        sum=0
+        for i in nums:sum^=i
+        sum=(sum&(sum-1))^sum
+        a,b=0,0
+        for i in nums:
+            if sum&i:
+                a^=i
+            else:
+                b^=i
+        return [a,b]
