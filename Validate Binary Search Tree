@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        long min=LONG_MIN, max=LONG_MAX;
+        return helper(root,min,max);
+        
+        
+    }
+    bool helper(TreeNode* root, long min, long max){
+        if(!root) return true;
+        if(root->val<=min||root->val>=max) return false;
+        if(!helper(root->left,min,root->val)||!helper(root->right,root->val,max)) return false;
+        return true;
+    }
+};
+
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        minV=-(1<<31)-1
+        maxV=1<<31
+        return self.isValid(root,minV,maxV)
+        
+        
+    def isValid(self, root, minV,maxV):
+        if not root:
+            return True
+        if root.val<=minV or root.val>=maxV:
+            return False
+        return (self.isValid(root.left,minV,root.val) and self.isValid(root.right,root.val,maxV))
